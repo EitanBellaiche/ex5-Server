@@ -9,10 +9,8 @@ const playersRouter = require('./routers/playersRouter');
 
 const port = process.env.PORT || 10000; 
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.use((req, res, next) => {
     res.set({
@@ -24,13 +22,11 @@ app.use((req, res, next) => {
     next();
 });
 
-
 app.use('/api/players', playersRouter);
-
 
 app.use((req, res) => {
     console.error('Path not found:', req.path);
-    res.status(400).send('Something is broken!');
+    res.status(400).json({ success: false, message: 'Something is broken!' });
 });
 
 app.listen(port, () => {
