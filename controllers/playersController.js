@@ -16,7 +16,7 @@ exports.playersController = {
             res.json({ success: true, message: 'Player added successfully!' });
         } catch (error) {
             console.error('Error adding player:', error);
-            res.status(500).json({ success: false, message: 'Internal Server Error' });
+            res.status(500).json({ success: false, message: 'Failed to add player', error: error.message });
         }
     }
 };
