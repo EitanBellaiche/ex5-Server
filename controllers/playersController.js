@@ -1,13 +1,13 @@
 exports.playersController = {
     async addPlayer(req, res) {
         try {
-            // הצגת הנתונים שהתקבלו מהלקוח
+     
             console.log('Received data:', req.body);
 
             const { dbConnection } = require('../db_connection');
             const { player_name, player_goals, player_match_played, player_description } = req.body;
 
-            // בדיקה אם כל השדות נשלחו מהלקוח
+          
             if (!player_name || !player_goals || !player_match_played || !player_description) {
                 console.log('Missing fields:', {
                     player_name,

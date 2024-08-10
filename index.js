@@ -5,6 +5,7 @@ const app = express();
 
 app.use(cors()); 
 
+
 const playersRouter = require('./routers/playersRouter'); 
 
 const port = process.env.PORT || 10000; 
@@ -22,7 +23,9 @@ app.use((req, res, next) => {
     next();
 });
 
+
 app.use('/api/players', playersRouter);
+
 
 app.use((req, res) => {
     console.error('Path not found:', req.path);

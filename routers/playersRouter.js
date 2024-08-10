@@ -1,9 +1,12 @@
-const {Router} = require('express');
-const {playersController} = require('../controllers/playersController.js');
+const { Router } = require('express');
+const { playersController } = require('../controllers/playersController.js');
 
 const playersRouter = new Router(); 
 
 
-playersRouter.post('/addPlayer', playersController.addPlayer);
+playersRouter.post('/add', (req, res, next) => {
+    console.log("Received POST request at /api/players/add");
+    next();
+}, playersController.addPlayer);
 
 module.exports = playersRouter;
