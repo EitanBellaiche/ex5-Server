@@ -6,4 +6,4 @@ const playersRouter = new Router();
 
 playersRouter.post('/addPlayer', playersController.addPlayer);
 
-module.exports = {playersRouter};
+module.exports = playersRouter;
