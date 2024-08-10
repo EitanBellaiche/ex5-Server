@@ -1,7 +1,7 @@
 exports.playersController = {
     async addPlayer(req, res) {
         try {
-            console.log('Received data:', req.body);
+            console.log('Received data:', req.body); 
 
             const { dbConnection } = require('../db_connection');
             const { player_name, player_goals, player_match_played, player_description } = req.body;
@@ -58,7 +58,7 @@ exports.playersController = {
 
     async deletePlayer(req, res) {
         try {
-            const { playerName } = req.params; // קבלת שם השחקן מהנתיב
+            const { playerName } = req.params;
 
             const { dbConnection } = require('../db_connection');
             const connection = await dbConnection.createConnection();
@@ -77,6 +77,33 @@ exports.playersController = {
         } catch (error) {
             console.error('Error deleting player:', error);
             res.status(500).json({ success: false, message: 'Failed to delete player', error: error.message });
+        }
+    },
+
+    async updatePlayer(req, res) {
+        try {
+            const { old_name, player_name, player_goals, player_match_played, player_description } = req.body;
+
+            const { dbConnection } = require('../db_connection');
+            const connection = await dbConnection.createConnection();
+
+            const [result] = await connection.execute(
+                `UPDATE tbl_15_players 
+                 SET player_name = ?, player_goals = ?, player_match_played = ?, player_description = ? 
+                 WHERE player_name = ?`,
+                [player_name, player_goals, player_match_played, player_description, old_name]
+            );
+            
+            connection.end();
+
+            if (result.affectedRows > 0) {
+                res.json({ success: true, message: 'Player updated successfully.' });
+            } else {
+                res.status(404).json({ success: false, message: 'Player not found.' });
+            }
+        } catch (error) {
+            console.error('Error updating player:', error);
+            res.status(500).json({ success: false, message: 'Failed to update player', error: error.message });
         }
     }
 };
