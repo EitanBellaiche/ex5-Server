@@ -1,5 +1,6 @@
 exports.playersController = {
     async addPlayer(req, res) {
+        console.log('Received data:', req.body);
         const { dbConnection } = require('../db_connection');
         const { player_id, player_name, player_goals, player_match_played, player_description } = req.body;
 
