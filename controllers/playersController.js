@@ -83,19 +83,30 @@ exports.playersController = {
     async updatePlayer(req, res) {
         try {
             const { old_name, player_name, player_goals, player_match_played, player_description } = req.body;
-
+    
+            if (!old_name || !player_name || !player_goals || !player_match_played || !player_description) {
+                console.log('Missing fields for update:', {
+                    old_name,
+                    player_name,
+                    player_goals,
+                    player_match_played,
+                    player_description
+                });
+                return res.status(400).json({ success: false, message: 'Missing required fields for update' });
+            }
+    
             const { dbConnection } = require('../db_connection');
             const connection = await dbConnection.createConnection();
-
+    
             const [result] = await connection.execute(
                 `UPDATE tbl_15_players 
                  SET player_name = ?, player_goals = ?, player_match_played = ?, player_description = ? 
-                 WHERE player_name = ?`,
+                 WHERE player_name = ?`, 
                 [player_name, player_goals, player_match_played, player_description, old_name]
             );
-            
+    
             connection.end();
-
+    
             if (result.affectedRows > 0) {
                 res.json({ success: true, message: 'Player updated successfully.' });
             } else {
@@ -106,4 +117,5 @@ exports.playersController = {
             res.status(500).json({ success: false, message: 'Failed to update player', error: error.message });
         }
     }
+    
 };
