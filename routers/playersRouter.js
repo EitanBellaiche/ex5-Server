@@ -1,11 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const { playersController } = require('../controllers/playersController'); 
+const {Router} = require('express');
+const {playersController} = require('../controllers/playersController.js');
+
+const playersRouter = new Router(); 
 
 
-router.post('/add', (req, res, next) => {
-    console.log('Request received at /add'); 
-    next();
-}, playersController.addPlayer);
+playersRouter.post('/addPlayer', playersController.addPlayer);
 
-module.exports = router;
+module.exports = {playersRouter};
