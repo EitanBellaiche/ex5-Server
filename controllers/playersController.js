@@ -4,25 +4,27 @@ exports.playersController = {
         const { dbConnection } = require('../db_connection');
         const { player_id, player_name, player_goals, player_match_played, player_description } = req.body;
 
-        console.log('Received data:', req.body); 
+        if (!player_id || !player_name || !player_goals || !player_match_played || !player_description) {
+            return res.status(400).json({ success: false, message: 'Missing required fields' });
+        }
 
         try {
             const connection = await dbConnection.createConnection();
 
             const [playerInfo] = await connection.execute(
-                `INSERT INTO tbl_15_players (player_name, player_goals, player_match_played, player_description)
+                `INSERT INTO tbl_15_players (player_id, player_name, player_goals, player_match_played, player_description)
                  VALUES (?, ?, ?, ?, ?)
                  ON DUPLICATE KEY UPDATE
                  player_name = VALUES(player_name),
                  player_goals = VALUES(player_goals),
                  player_match_played = VALUES(player_match_played),
                  player_description = VALUES(player_description)`,
-                [player_name, player_goals, player_match_played, player_description]
+                [player_id, player_name, player_goals, player_match_played, player_description]
             );
             
             connection.end();
 
-            res.json({ success: true, message: 'Player added or updated successfully!' ,playerInfo});
+            res.json({ success: true, message: 'Player added or updated successfully!', playerInfo });
         } catch (error) {
             console.error('Error adding or updating player:', error);
             res.status(500).json({ success: false, message: 'Failed to add or update player', error: error.message });
