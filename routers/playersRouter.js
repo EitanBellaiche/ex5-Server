@@ -12,7 +12,7 @@ playersRouter.post('/add', (req, res, next) => {
     next();
 }, playersController.addPlayer);
 
-
+playersRouter.put('/update', playersController.updatePlayer); 
 playersRouter.delete('/:playerName', playersController.deletePlayer);
 
 module.exports = playersRouter;
