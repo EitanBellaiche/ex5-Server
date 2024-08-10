@@ -10,7 +10,7 @@ exports.playersController = {
             const connection = await dbConnection.createConnection();
 
             const [playerInfo] = await connection.execute(
-                `INSERT INTO tbl_15_players (player_id, player_name, player_goals, player_match_played, player_description)
+                `INSERT INTO tbl_15_players (player_name, player_goals, player_match_played, player_description)
                  VALUES (?, ?, ?, ?, ?)
                  ON DUPLICATE KEY UPDATE
                  player_name = VALUES(player_name),
