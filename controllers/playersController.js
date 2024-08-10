@@ -17,7 +17,7 @@ exports.playersController = {
                  player_goals = VALUES(player_goals),
                  player_match_played = VALUES(player_match_played),
                  player_description = VALUES(player_description)`,
-                [player_id, player_name, player_goals, player_match_played, player_description]
+                [player_name, player_goals, player_match_played, player_description]
             );
             
             connection.end();
