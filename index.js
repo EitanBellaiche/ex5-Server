@@ -8,7 +8,7 @@ const server = http.createServer(app);
 
 
 const port = process.env.PORT || 8081;
-const {playersRouter} = require('./routers/players.js');
+const {playersRouter} = require('./routers/playersRouter.js');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
