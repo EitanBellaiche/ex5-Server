@@ -8,5 +8,6 @@ playersRouter.post('/add', (req, res, next) => {
     console.log("Received POST request at /api/players/add");
     next();
 }, playersController.addPlayer);
+playersRouter.delete('/:playerId', playersController.deletePlayer);
 
 module.exports = playersRouter;

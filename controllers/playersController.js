@@ -54,5 +54,29 @@ exports.playersController = {
             console.error('Error fetching players:', error);
             res.status(500).json({ success: false, message: 'Failed to fetch players', error: error.message });
         }
+    },
+
+    async deletePlayer(req, res) {
+        try {
+            const { playerId } = req.params;
+
+            const { dbConnection } = require('../db_connection');
+            const connection = await dbConnection.createConnection();
+
+            const [result] = await connection.execute(
+                `DELETE FROM tbl_15_players WHERE id = ?`, [playerId]
+            );
+            
+            connection.end();
+
+            if (result.affectedRows > 0) {
+                res.json({ success: true, message: 'Player deleted successfully.' });
+            } else {
+                res.status(404).json({ success: false, message: 'Player not found.' });
+            }
+        } catch (error) {
+            console.error('Error deleting player:', error);
+            res.status(500).json({ success: false, message: 'Failed to delete player', error: error.message });
+        }
     }
 };
