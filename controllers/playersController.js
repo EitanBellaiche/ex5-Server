@@ -1,14 +1,22 @@
 exports.playersController = {
-    async getPlayersData(req, res) {
+    async addPlayer(req, res) {
         const { dbConnection } = require('../db_connection');
+        const { player_name, goals, red_cards, description } = req.body;
+
         try {
             const connection = await dbConnection.createConnection();
-            const [playersData] = await connection.execute('SELECT * FROM tbl_15_players;');
+
+            const query = `
+                INSERT INTO tbl_15_players (player_name, goals, red_cards, description)
+                VALUES (?, ?, ?, ?)
+            `;
+            await connection.execute(query, [player_name, goals, red_cards, description]);
             connection.end();
-            res.json({ success: true, playersData });
+
+            res.json({ success: true, message: 'Player added successfully!' });
         } catch (error) {
-            console.error('Error fetching event Notification:', error);
+            console.error('Error adding player:', error);
             res.status(500).json({ success: false, message: 'Internal Server Error' });
         }
     }
-    };
+};
