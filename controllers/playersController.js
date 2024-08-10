@@ -98,12 +98,22 @@ exports.playersController = {
             const { dbConnection } = require('../db_connection');
             const connection = await dbConnection.createConnection();
     
+            console.log('Attempting to update player with data:', {
+                old_name,
+                player_name,
+                player_goals,
+                player_match_played,
+                player_description
+            });
+    
             const [result] = await connection.execute(
                 `UPDATE tbl_15_players 
                  SET player_name = ?, player_goals = ?, player_match_played = ?, player_description = ? 
                  WHERE player_name = ?`, 
                 [player_name, player_goals, player_match_played, player_description, old_name]
             );
+    
+            console.log('Update result:', result); 
     
             connection.end();
     
@@ -113,9 +123,10 @@ exports.playersController = {
                 res.status(404).json({ success: false, message: 'Player not found.' });
             }
         } catch (error) {
-            console.error('Error updating player:', error);
+            console.error('Error updating player:', error); 
             res.status(500).json({ success: false, message: 'Failed to update player', error: error.message });
         }
     }
+    
     
 };
