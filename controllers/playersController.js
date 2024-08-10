@@ -58,13 +58,13 @@ exports.playersController = {
 
     async deletePlayer(req, res) {
         try {
-            const { playerId } = req.params;
+            const { playerName } = req.params; // קבלת שם השחקן מהנתיב
 
             const { dbConnection } = require('../db_connection');
             const connection = await dbConnection.createConnection();
 
             const [result] = await connection.execute(
-                `DELETE FROM tbl_15_players WHERE player_id = ?`, [playerId]
+                `DELETE FROM tbl_15_players WHERE player_name = ?`, [playerName]
             );
             
             connection.end();
