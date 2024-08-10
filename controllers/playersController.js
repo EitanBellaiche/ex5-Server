@@ -3,7 +3,7 @@ exports.playersController = {
         const { dbConnection } = require('../db_connection');
         try {
             const connection = await dbConnection.createConnection();
-            const [playersData] = await connection.execute('SELECT * FROM tbl105_notfication;');
+            const [playersData] = await connection.execute('SELECT * FROM tbl_15_players;');
             connection.end();
             res.json({ success: true, playersData });
         } catch (error) {
