@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
     res.set({
-        'Access-Control-Allow-Origin': 'https://ex5-server.onrender.com', 
+        'Access-Control-Allow-Origin': '*', 
         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
         'Access-Control-Allow-Methods': "GET, POST, PUT, DELETE",
         'Content-Type': 'application/json'
