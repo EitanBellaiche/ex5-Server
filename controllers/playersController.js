@@ -3,6 +3,8 @@ exports.playersController = {
         const { dbConnection } = require('../db_connection');
         const { player_name, goals, red_cards, description } = req.body;
 
+        console.log('Received data:', req.body); 
+
         try {
             const connection = await dbConnection.createConnection();
 
