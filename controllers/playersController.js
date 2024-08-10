@@ -9,7 +9,7 @@ exports.playersController = {
             const connection = await dbConnection.createConnection();
 
             const query = `
-                INSERT INTO tbl_15_players (player_name, goals, red_cards, description)
+                INSERT INTO tbl_15_players (player_name, player_goals, player_match_played, player_description)
                 VALUES (?, ?, ?, ?)
             `;
             await connection.execute(query, [player_name, goals, red_cards, description]);
