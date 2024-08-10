@@ -64,7 +64,7 @@ exports.playersController = {
             const connection = await dbConnection.createConnection();
 
             const [result] = await connection.execute(
-                `DELETE FROM tbl_15_players WHERE id = ?`, [playerId]
+                `DELETE FROM tbl_15_players WHERE player_id = ?`, [playerId]
             );
             
             connection.end();
