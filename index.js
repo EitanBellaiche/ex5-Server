@@ -5,7 +5,7 @@ const app = express();
 
 const playersRouter = require('./routers/playersRouter'); 
 
-r
+
 const corsOptions = {
   origin: 'https://ex5-server.onrender.com', 
   optionsSuccessStatus: 200
